@@ -1,14 +1,15 @@
 import React from 'react';
 
 class SearchBar extends React.Component {
-    state = { term: '' }
+    state = { term: '', pita: 'kurac' }
 
     onFormSubmit = (event) => {
         event.preventDefault();
-        console.log(this.state.term)
+        
         this.props.naSubmitanje(this.state.term)
     }
 
+   
     
 
 
