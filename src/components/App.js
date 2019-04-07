@@ -2,9 +2,12 @@ import React from 'react';
 import axios from 'axios'
 import SearchBar from './SearchBar';
 import apixuConfig from '../api/apixu';
+import City from './City';
 
 class App extends React.Component {
     state = { generalInfo: {} , forecast:{} }
+
+    
 
     onSearchSubmit = async (term) => {
         const response = await axios(`${apixuConfig.baseURL}${apixuConfig.headers.Authorization}&q=${term}&days=3`);
@@ -39,24 +42,21 @@ class App extends React.Component {
 
                 }
             }
+            
          });
-
-        console.log(
-            this.state.generalInfo.city,
-            this.state.generalInfo.country,
-            this.state.generalInfo.time,
-            this.state.generalInfo.temperature,
-            this.state.forecast.day2.date,
-            response
-            )
+         
     }
 
+    
 
 
     render(){
+            
         return (
-            <div>
-                <SearchBar naSubmitanje={this.onSearchSubmit}/>
+            <div className="ui container " style={{marginTop: "10px"}}>
+                <SearchBar naSubmitanje={this.onSearchSubmit} callCity={this.callCity}/>
+                <City genInfo={this.state.generalInfo}  />
+                
             </div>
         )
     }

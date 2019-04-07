@@ -1,5 +1,3 @@
-import axios from 'axios';
-
  const apixuConfig = {
     baseURL: 'http://api.apixu.com/v1/forecast.json?',
     headers: {
