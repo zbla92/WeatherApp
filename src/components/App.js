@@ -5,7 +5,7 @@ import apixuConfig from '../api/apixu';
 import City from './City';
 
 class App extends React.Component {
-    state = { generalInfo: {} , forecast:{} }
+    state = { generalInfo: {} , day0:{}, day1:{}, day2: {} }
 
     
 
@@ -19,32 +19,30 @@ class App extends React.Component {
                 dayPart: response.data.current.is_day,
                 temperature: response.data.current.temp_c,
                  },
-            forecast: {
-                day0: {
-                    date: response.data.forecast.forecastday[0].date,
-                    maxtTemp: response.data.forecast.forecastday[0].maxtemp_c,
-                    minTemp: response.data.forecast.forecastday[0].mintemp_c,
-                    condition: response.data.forecast.forecastday[0].condition // Add .text for 'Sunny' || add .icon for icon of the condition
-
-                },
-                day1: {
-                    date: response.data.forecast.forecastday[1].date,
-                    maxtTemp: response.data.forecast.forecastday[1].maxtemp_c,
-                    minTemp: response.data.forecast.forecastday[1].mintemp_c,
-                    condition: response.data.forecast.forecastday[1].condition // Add .text for 'Sunny' || add .icon for icon of the condition
-
-                },
-                day2: {
-                    date: response.data.forecast.forecastday[2].date,
-                    maxtTemp: response.data.forecast.forecastday[2].maxtemp_c,
-                    minTemp: response.data.forecast.forecastday[2].mintemp_c,
-                    condition: response.data.forecast.forecastday[2].condition // Add .text for 'Sunny' || add .icon for icon of the condition
-
-                }
+            day0: {
+                date: response.data.forecast.forecastday[0].date,
+                maxtTemp: response.data.forecast.forecastday[0].day.maxtemp_c,
+                minTemp: response.data.forecast.forecastday[0].day.mintemp_c,
+                conditionText: response.data.forecast.forecastday[0].day.condition.text,
+                conditionImg: response.data.forecast.forecastday[0].day.condition.icon // Add .text for 'Sunny' || add .icon for icon of the condition   
+            },
+            day1: {
+                date: response.data.forecast.forecastday[1].date,
+                maxtTemp: response.data.forecast.forecastday[1].day.maxtemp_c,
+                minTemp: response.data.forecast.forecastday[1].day.mintemp_c,
+                conditionText: response.data.forecast.forecastday[1].day.condition.text,
+                conditionImg: response.data.forecast.forecastday[1].day.condition.icon // Add .text for 'Sunny' || add .icon for icon of the condition
+            },
+            day2: {
+                date: response.data.forecast.forecastday[2].date,
+                maxtTemp: response.data.forecast.forecastday[2].day.maxtemp_c,
+                minTemp: response.data.forecast.forecastday[2].day.mintemp_c,
+                conditionText: response.data.forecast.forecastday[2].day.condition.text,
+                conditionImg: response.data.forecast.forecastday[2].day.condition.icon
             }
             
          });
-         
+   
     }
 
     
@@ -53,9 +51,9 @@ class App extends React.Component {
     render(){
             
         return (
-            <div className="ui container " style={{marginTop: "10px"}}>
+            <div>
                 <SearchBar naSubmitanje={this.onSearchSubmit} callCity={this.callCity}/>
-                <City genInfo={this.state.generalInfo}  />
+                <City genInfo={this.state.generalInfo} day0={this.state.day0} />
                 
             </div>
         )

@@ -1,6 +1,25 @@
+body{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+    
+}
 .background-day{
     background-color: #45aaf2;
 }
 .background-night{
     background-color:#4b6584;
+}
+.city-name{
+    color: rgba(255, 255, 255, 0.856);
+    margin-top: 10px;
+    margin-bottom: 30%;
+    font-size: 500%;
+}
+
+.city-temp{
+    font-size: 500%;
+    margin-top: 40px;
+}
+
+.weather-icon{
+    font-size: 300%;
 }
