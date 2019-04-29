@@ -1,16 +1,22 @@
 import React from 'react';
 import axios from 'axios'
 import SearchBar from './SearchBar';
+import ForecastList from './ForecastList'
 import apixuConfig from '../api/apixu';
 import City from './City';
 
 class App extends React.Component {
-    state = { generalInfo: {} , day0:{}, day1:{}, day2: {} }
+    state = { generalInfo: {} , day0:{}, day1:{}, day2: {}, day3: {}, day4: {} }
 
-    
+    componentDidMount(){
+        window.navigator.geolocation.getCurrentPosition(
+            (position) => this.onSearchSubmit(`${position.coords.latitude.toFixed(5)} ${position.coords.longitude.toFixed(6)}`),
+            (err) => this.setState({errorMessage: err.message})
+            );
+    }
 
     onSearchSubmit = async (term) => {
-        const response = await axios(`${apixuConfig.baseURL}${apixuConfig.headers.Authorization}&q=${term}&days=3`);
+        const response = await axios(`${apixuConfig.baseURL}${apixuConfig.headers.Authorization}&q=${term}&days=5`);
         this.setState({ 
             generalInfo: {
                 city: response.data.location.name,
@@ -39,6 +45,20 @@ class App extends React.Component {
                 minTemp: response.data.forecast.forecastday[2].day.mintemp_c,
                 conditionText: response.data.forecast.forecastday[2].day.condition.text,
                 conditionImg: response.data.forecast.forecastday[2].day.condition.icon
+            },
+            day3: {
+                date: response.data.forecast.forecastday[3].date,
+                maxtTemp: response.data.forecast.forecastday[3].day.maxtemp_c,
+                minTemp: response.data.forecast.forecastday[3].day.mintemp_c,
+                conditionText: response.data.forecast.forecastday[3].day.condition.text,
+                conditionImg: response.data.forecast.forecastday[3].day.condition.icon
+            },
+            day4: {
+                date: response.data.forecast.forecastday[4].date,
+                maxtTemp: response.data.forecast.forecastday[4].day.maxtemp_c,
+                minTemp: response.data.forecast.forecastday[4].day.mintemp_c,
+                conditionText: response.data.forecast.forecastday[4].day.condition.text,
+                conditionImg: response.data.forecast.forecastday[4].day.condition.icon
             }
             
          });
@@ -54,7 +74,9 @@ class App extends React.Component {
             <div>
                 <SearchBar naSubmitanje={this.onSearchSubmit} callCity={this.callCity}/>
                 <City genInfo={this.state.generalInfo} day0={this.state.day0} />
-                
+                <div className="five wide column">
+                    <ForecastList {...this.state}/>
+                </div>
             </div>
         )
     }
