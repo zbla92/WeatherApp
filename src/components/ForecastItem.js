@@ -10,8 +10,13 @@ const ForecastItem = ({date, maxTmp, minTemp, condition, icon}) => {
     }
 return(
      <div className="column">
-            <h3 class="ui info">{getDate(date)}</h3>
-            <h3 class="ui header">Max: {maxTmp}</h3>
+            <h2 className="ui header">{getDate(date)}</h2>
+            <img src={`${icon}`}></img>
+            <h3 className="ui info">Max: {maxTmp}&#176; C</h3>
+            <h3 className="ui info">Min: {minTemp}&#176; C</h3>
+            <h6 className="forecast_condition">{condition}</h6>
+
+            
 
      </div>
     
