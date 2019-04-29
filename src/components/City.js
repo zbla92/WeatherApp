@@ -16,7 +16,7 @@ class City extends React.Component{
 
     renderTime(time){
         const date = new Date(time);
-        return `Time:  ${date.getHours()}:${date.getMinutes()}`;
+        return `Time:  ${date.getHours()}:${date.getMinutes().length < 1 ? "0"+ date.getMinutes() : date.getMinutes()}`;
     }
 
     renderImg(image){
